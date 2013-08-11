@@ -51,7 +51,7 @@ module Exotel
       mandatory_keys << :flow_id if options[:type] == 'flow'
       
       unless mandatory_keys.all?{|key| params.keys.include?(key)}
-        raise Exotel::ParamsError, "Missing one or many required parameters." 
+        raise Exotel::ParamsError, (mandatory_keys - params.keys).map { |p| "#{p} parameter is missing"  }
       end 
       valid_call_type?(params)
       return true  

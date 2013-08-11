@@ -31,8 +31,9 @@ module Exotel
     protected
     
     def valid?(params)
+      valid_params = [:from, :to, :body]
       unless [:from, :to, :body].all?{|key| params.keys.include?(key)}
-        raise Exotel::ParamsError, "Missing one or many required parameters." 
+        raise Exotel::ParamsError, (valid_params - params.keys).map { |p| "#{p} parameter is missing"  } 
       else
         true  
       end 
